@@ -1,0 +1,26 @@
+spring:
+    jpa:
+        hibernate:
+            ddl-auto: none
+            naming:
+                implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        properties:
+            hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+    config:
+        import: security-variable.yml
+    mvc:
+        static-path-pattern: /static/**
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/gameweb
+        username: root
+        password: ${mysql.password}
+    thymeleaf:
+        cache: false
+    application:
+        name: Blastagram
+
+mybatis:
+    mapper-locations: mappers/*Mapper.xml
+

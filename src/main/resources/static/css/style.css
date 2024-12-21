@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+#wrap {
+	width : 1440px;
+	height : 1024px;
+	margin : 0 auto;
+}
+
+header {
+	height:100;
+}
+
+header nav ul li {
+	list-style: none;
+	display: inline-block;
+}
+
+.contents {
+	width:511px;
+	height:800px;
+	border-radius:30px;
+	background: rgba(217, 217, 217, 1.0);
+	margin:50px auto;
+}
+
