@@ -39,8 +39,13 @@ public class UserService {
 			return true;
 		} catch(Exception e) {
 			return false;
-		}
-		
+		}	
+	}
+	
+	
+	// 아이디 중복확인
+	public boolean duplicateId(String loginId) {
+		return userRepository.existsByLoginId(loginId);
 	}
 
 }
