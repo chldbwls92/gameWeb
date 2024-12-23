@@ -60,7 +60,72 @@
 			}
 			
 			
-			
+			// 가입 버튼(joinBtn)이 클릭됐을때
+			$("#joinBtn").on("click", function() {
+				let id = $("#loginIdInput").val();
+				let password = $("#passwordInput").val();
+				let passwordConfilm = $("#passwordConfilmInput").val();
+				let name = $("#nameInput").val();
+				let year = $("#year").val();
+				let month = $("#month").val();
+				let day = $("#day").val();
+				
+				
+				// 유효성 검사
+				if(id == "") {
+					  alert("아이디를 입력하세요");
+					  return;
+				  }
+				if(password == "") {
+					 alert("비밀번호를 입력하세요");
+					 return;
+				}
+				
+				if(password != passwordConfilm) {
+					alert("비밀번호가 일치하지 않습니다")
+					return;
+				}
+				
+				if(name == "") {
+					alert("이름을 입력하세요")
+					return;
+				}
+				
+				if(!year || !month || !day) {
+					 alert("생년월일을 입력해주세요")
+					 return;
+				}
+				
+				// 한자리수일 경우 앞에 0을 채워주기
+				if(month.length == 1){ 
+					month = '0' + month; 
+		        } 
+		        if(day.length == 1){ 
+					day = '0' + day; 
+		        } 
+		        
+		        // 생일 최종
+			  	let birthday = `${year}-${month}-${day}`;
+				
+				
+			  	$.ajax({
+						type:"post"
+						, url:"/user/join"
+						, data:{"loginId":id, "password":password, "name":name, "birthday":birthday}
+						  , success:function(response) {
+								if(response.result == "success") {
+									location.href = "/user/login-view"; // 로그인 화면으로 이동
+								} else {
+									alert("회원가입 실패");
+								}
+						  	}
+							, error:function() {
+								alert("회원가입 에러!");
+							}
+			  		
+			  	})
+			  	
+			});
 			
 			
 		});
