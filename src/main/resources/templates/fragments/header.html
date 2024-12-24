@@ -1,17 +1,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<header class="d-flex align-items-center px-3 bg-dark">
-		<a class="text-white ml-3 mr-3">logo</a>
+		<a href="/main/home-view" class="text-white ml-3 mr-3">logo</a>
 		<nav class="d-flex mx-auto mt-2">
 			<ul class="ml-5 d-flex">
-				<li><a href="#" class="text-white mx-3">리뷰</a></li><b class="text-white">|</b>
+				<li><a href="/review/main-view" class="text-white mx-3">리뷰</a></li><b class="text-white">|</b>
 				<li><a href="#" class="text-white mx-3">꿀팁</a></li><b class="text-white">|</b>
 				<li><a href="#" class="text-white mx-3">클립</a></li><b class="text-white">|</b>
 				<li><a href="#" class="text-white mx-3">문의</a></li>
 			</ul>
 		</nav>
 		<div class="d-flex justify-conetent-end">
-			<a href="/user/join-view" class="text-white mx-3">회원가입</a><b class="text-white">|</b><a href="/user/login-view" class="text-white mx-3">로그인</a>
+			<a href="/user/join-view" class="text-white mx-3">회원가입</a><b class="text-white">|</b>
+			<div th:if="${session.userId != null}" class="text-white ml-3">
+				<span th:text="|${session.userLoginId}님|">사용자님</span>
+			</div>
+			<div th:unless="${session.userId != null}">
+				<a href="/user/login-view" class="text-white mx-3">로그인</a>
+			</div>
 		</div>
 	</header>
-
 </html>

@@ -11,12 +11,44 @@
 			<input type="text" class="form-control mt-5" id="loginIdInput" placeholder="아이디">
 			<input type="password" class="form-control mt-2" id="passwordInput" placeholder="비밀번호">
 
-			<button id="joinBtn" class="btn btn-dark text-white w-100 btn-block rounded-lg mt-4">로그인</button>
+			<button type="button" id="loginBtn" class="btn btn-dark text-white w-100 btn-block rounded-lg mt-4">로그인</button>
 		</div>
 	</article>
 	
 	<script layout:fragment="script">
-	
+		$(document).ready(function () {
+			$("#loginBtn").on("click", function() {
+				let id = $("#loginIdInput").val();
+				let password = $("#passwordInput").val();
+				
+				// 유효성 검사
+				if(id == "") {
+					alert("아이디를 입력해주세요");
+					return;
+				}
+				if(password == "") {
+					alert("비밀번호를 입력해주세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"post"
+					, url:"/user/login"
+					, data:{"loginId":id,"password":password}
+					, success:function(response) {
+						if(response.result == "success") {
+							location.href == "/main/home-view"; //메인화면으로 이동
+						} else {
+							alert("아이디와 비밀번호를 확인해주세요");
+						}
+					}
+					, error:function() {
+						alert("로그인 에러");
+					}
+				});
+				
+			})
+		});
 	</script>
 </body>
 </html>

@@ -47,5 +47,14 @@ public class UserService {
 	public boolean duplicateId(String loginId) {
 		return userRepository.existsByLoginId(loginId);
 	}
+	
+	
+	// 특정 이용자 있는지 확인
+	public User getUser(String loginId, String password) {
+		
+		// 비밀번호 암호화 된 거 가져오기
+		String encodingPassword = MD5HashingEncoder.encode(password);
+		return userRepository.findByloginIdAndPassword(loginId, encodingPassword);
+	}
 
 }

@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chldbwls.spring.gameWeb.user.domain.User;
 import com.chldbwls.spring.gameWeb.user.service.UserService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/user")
@@ -53,7 +57,35 @@ public class UserRestController {
 		resultMap.put("duplicate", userService.duplicateId(loginId));
 		
 		return resultMap;
-		
 	}
+	
+	
+	//login
+	@PostMapping("/login")
+	public Map<String,String> login(
+			@RequestParam("loginId") String loginId
+			, @RequestParam("password") String password
+			, HttpServletRequest request) {
+		
+		// 실제로 이 사람이 있는지 확인하기
+		User user = userService.getUser(loginId, password);
+		
+		Map<String, String> resultMap = new HashMap<>();
+		
+		if(user != null) {
+			// 성공했을 경우
+			// 사용자 정보 가져오기
+			HttpSession session = request.getSession();
+			
+			session.setAttribute("userId", user.getId()); // 사용자 프라이머리키
+			session.setAttribute("userLoginId", user.getLoginId()); // 사용자 로그인아이디
+			
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result","fail");
+		}
+		return resultMap;
+	}
+	
 	
 }
