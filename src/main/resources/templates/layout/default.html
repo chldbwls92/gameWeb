@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>gameWeb</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <link rel="stylesheet" href="/static/css/style.css">
 </head>
@@ -13,7 +14,7 @@
 		<th:block th:replace="~{fragments/header :: header}"></th:block>
 		
 		<!-- contents -->
-		<th:block layout:fragment="contents"></th:block>
+		<th:block layout:fragment="contents" style="height:850px;"></th:block>
 		
 		<!-- footer -->
 		<th:block th:replace="~{fragments/footer :: footer}"></th:block>
