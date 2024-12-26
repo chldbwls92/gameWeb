@@ -1,6 +1,6 @@
 package com.chldbwls.spring.gameWeb.common;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileManager {
 	
-	public final static String FILE_UPLOAD_PATH = "src/main/resources/static/game";
+	public final static String FILE_UPLOAD_PATH = "C:\\gameWeb\\upload";
 	
 	public static String saveFile(MultipartFile file) {
 		
@@ -18,36 +18,22 @@ public class FileManager {
 			return null;
 		}
 	
-		// 파일 이름
-		String directoryName = "/" + System.currentTimeMillis();
-		
-		// 디렉토리 만들기
-		String directoryPath = FILE_UPLOAD_PATH + directoryName;
-		
-		File directory = new File(directoryPath);
-		
-		if(!directory.mkdir()) {
-			// 디렉토리 생성 실패
-			return null;
-		}
-		
-		// 파일 저장
-		String filePath = directoryPath + "/" + file.getOriginalFilename();
-		
-		try {
-			byte[] bytes = file.getBytes();
-			// bytes가 실제 파일 경로
-			// java.nyo?import
-			Path path = Paths.get(filePath);
-			Files.write(path, bytes);
-		} catch (IOException e) {
-			e.printStackTrace();
-			// 파일 저장 실패
-			return null;
-		}
-		
-		return "/images" + directoryName + "/" + file.getOriginalFilename();
-	}
+		 // 파일 저장 경로 설정
+        String filePath = FILE_UPLOAD_PATH + "/" + file.getOriginalFilename();
+
+        try {
+            // 파일 저장
+            Path path = Paths.get(filePath);
+            Files.write(path, file.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        //C:\\gameWeb\\upload/LeagueOfLegends.jpg
+        // /game/LeagueOfLegends.jpg
+        // 저장된 파일의 경로 반환
+        return "/game/" + file.getOriginalFilename();
+    }
 
 
 }
