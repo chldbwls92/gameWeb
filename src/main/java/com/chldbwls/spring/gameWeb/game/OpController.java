@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/game")
 public class OpController {
 	
-	@GetMapping("create-view")
+	@GetMapping("/create-view")
 	public String gameCreate() {
 		return "game/create";
 	}

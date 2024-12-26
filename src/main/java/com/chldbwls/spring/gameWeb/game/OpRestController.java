@@ -3,6 +3,7 @@ package com.chldbwls.spring.gameWeb.game;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,15 +27,15 @@ public class OpRestController {
 	
 	
 	// game 추가
+	@PostMapping("/create")
 	public Map<String, String> createGame(
 			@RequestParam("title") String title
-			, @RequestParam("imagePath") MultipartFile imagePath
-			, HttpSession session) {
-		
-		// userLoginId를 가져와서 판단.. 할 필요가 없나 ..?
-		// 짯피 맞지 않으면 화면 자체를 안 보이게 할 거니까
-		String userLoginId = (String)session.getAttribute("userLoginId");
-		
+			, @RequestParam("imagePath") MultipartFile imagePath) {
+//		
+//		// userLoginId를 가져와서 판단.. 할 필요가 없나 ..?
+//		// 짯피 맞지 않으면 화면 자체를 안 보이게 할 거니까
+//		String userLoginId = (String)session.getAttribute("userLoginId");
+//		
 		// 파일 저장
 		String filePath = FileManager.saveFile(imagePath);
 		

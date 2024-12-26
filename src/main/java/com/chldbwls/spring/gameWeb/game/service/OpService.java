@@ -1,5 +1,7 @@
 package com.chldbwls.spring.gameWeb.game.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.chldbwls.spring.gameWeb.game.domain.Game;
@@ -27,10 +29,15 @@ public class OpService {
 		try {
 			opRepository.save(game);
 			return true;
-		} catch(Exception e) {
+		} catch(Exception e) {	
 			return false;
 		}
-		
 	}
+	
+	public List<Game> getAllGames() {
+        List<Game> gameList = opRepository.findAll();
+        return gameList;
+        
+    }
 
 }
