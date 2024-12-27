@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.chldbwls.spring.gameWeb.game.domain.Game;
 import com.chldbwls.spring.gameWeb.game.service.OpService;
@@ -24,11 +25,23 @@ public class ReviewController {
 	@GetMapping("/main-view")
 	public String reviewMain(Model model) {
 		
-		List<Game> gameList = opService.getAllGames();
-		
+//		List<Game> gameList = opService.getAllGames();
+		List<Game> gameList = opService.getGame(id);
 		model.addAttribute("gameList", gameList);
 		
 		return "review/main";
+	}
+	
+	
+	// 리뷰 디테일 화면(게임 1개의 화면)
+	@GetMapping("/detail-view")
+	public String reviewDetail(
+			@RequestParam("id") int id
+			, Model model) {
+		
+		List<Game> review = opService.getGame(id);
+		model.addAttribute("game", game);
+		
 	}
 
 }

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<body>
+	<article layout:fragment="contents">
+		<h1 class="text-center text-white mt-5">리뷰</h1>
+			<!-- 게임 -->
+			<!-- game id로 접근해야돼 -->
+			<div id="memoReview" th:data-post-id="${game.id}">
+				<div class="text-center">
+					<a><img th:src="${game.imagePath}" width="150"></a>
+					<div th:text="${game.title}" class="w-10 text-white">리썰컴퍼니</div>
+				</div>
+			</div>
+	</article>
+</body>
+</html>

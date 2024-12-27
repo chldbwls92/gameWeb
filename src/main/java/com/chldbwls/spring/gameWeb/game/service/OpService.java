@@ -37,7 +37,11 @@ public class OpService {
 	public List<Game> getAllGames() {
         List<Game> gameList = opRepository.findAll();
         return gameList;
-        
     }
+	
+	public List<Game> getGame(int id) {
+		List<Game> game = opRepository.findAllByid(id);
+		return game;
+	}
 
 }

@@ -37,7 +37,7 @@
 					, data:{"loginId":id,"password":password}
 					, success:function(response) {
 						if(response.result == "success") {
-							location.href == "/main/home-view"; //메인화면으로 이동
+							location.href = "/main/home-view"; //메인화면으로 이동
 						} else {
 							alert("아이디와 비밀번호를 확인해주세요");
 						}

@@ -10,11 +10,22 @@
 			<div class="d-flex justify-content-around m-5">
 				<div th:each="game:${gameList}">
 					<div class="text-center">
+						<td th:text="${game.id}">3</td>
 						<a><img th:src="${game.imagePath}" width="150"></a>
 						<div th:text="${game.title}" class="w-10 text-white">리썰컴퍼니</div>
 					</div>
 				</div>
 			</div>
 	</article>
+	
+	<script layout:fragment="script">
+		$(document).ready(function() {
+			
+		})
+	
+	
+	</script>
+	
+	
 </body>
 </html>
