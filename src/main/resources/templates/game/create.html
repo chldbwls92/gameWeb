@@ -5,13 +5,14 @@
 
 <body>
 	<article layout:fragment="contents">
-		<h1 class="text-center text-white mt-5 p-5">리뷰</h1>
+		<h1 class="text-center text-white mt-5">게임 추가</h1>
 			<!-- 게임 -->
-			<div th:each="game:${gameList}" class="d-flex justify-content-around m-5">
-				<div class="text-center">
-					<a><img th:src="${game.imagePath}"></a>
-					<div th:text="${game.title}" class="w-10 text-white">리썰컴퍼니</div>
-					
+			<div class="d-flex justify-content-around m-5">
+				<div th:each="game:${gameList}">
+					<div class="text-center">
+						<a><img th:src="${game.imagePath}" width="150"></a>
+						<div th:text="${game.title}" class="w-10 text-white">리썰컴퍼니</div>
+					</div>
 				</div>
 			</div>
 			

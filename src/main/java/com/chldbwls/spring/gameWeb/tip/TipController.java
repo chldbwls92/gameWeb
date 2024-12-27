@@ -1,4 +1,4 @@
-package com.chldbwls.spring.gameWeb.review;
+package com.chldbwls.spring.gameWeb.tip;
 
 import java.util.List;
 
@@ -11,24 +11,25 @@ import com.chldbwls.spring.gameWeb.game.domain.Game;
 import com.chldbwls.spring.gameWeb.game.service.OpService;
 
 @Controller
-@RequestMapping("/review")
-public class ReviewController {
+@RequestMapping("/tip")
+public class TipController {
 	
 	private OpService opService;
 	
-	public ReviewController(OpService opService) {
+	public TipController(OpService opService) {
 		this.opService = opService;
 	}
 	
-	// 리뷰 메인화면
-	@GetMapping("/main-view")
-	public String reviewMain(Model model) {
-		
-		List<Game> gameList = opService.getAllGames();
-		
-		model.addAttribute("gameList", gameList);
-		
-		return "review/main";
-	}
+	
+	// 팁 메인화면
+		@GetMapping("/main-view")
+		public String reviewMain(Model model) {
+			
+			List<Game> gameList = opService.getAllGames();
+			
+			model.addAttribute("gameList", gameList);
+			
+			return "tip/main";
+		}
 
 }
