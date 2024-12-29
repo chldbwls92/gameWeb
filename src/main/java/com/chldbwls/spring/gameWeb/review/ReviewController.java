@@ -25,8 +25,7 @@ public class ReviewController {
 	@GetMapping("/main-view")
 	public String reviewMain(Model model) {
 		
-//		List<Game> gameList = opService.getAllGames();
-		List<Game> gameList = opService.getGame(id);
+		List<Game> gameList = opService.getAllGames();
 		model.addAttribute("gameList", gameList);
 		
 		return "review/main";
@@ -39,9 +38,10 @@ public class ReviewController {
 			@RequestParam("id") int id
 			, Model model) {
 		
-		List<Game> review = opService.getGame(id);
+		List<Game> game = opService.getGame(id);
 		model.addAttribute("game", game);
 		
+		return "review/detail";
+		
 	}
-
 }
