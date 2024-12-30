@@ -12,6 +12,7 @@ public class FileManager {
 	
 	public final static String FILE_UPLOAD_PATH = "C:\\gameWeb\\upload";
 	
+	// 이미지파일 저장
 	public static String saveFile(MultipartFile file) {
 		
 		if(file == null) {
@@ -35,5 +36,26 @@ public class FileManager {
         return "/game/" + file.getOriginalFilename();
     }
 
+	
+	// 이미지파일 삭제
+	public static boolean deleteFile(String filePath) {
+		
+		if(filePath == null) {
+			return false;
+		}
+		
+		//C:\\gameWeb\\upload/LeagueOfLegends.jpg
+		String fullFilePath = FILE_UPLOAD_PATH + filePath.replace("/game", "");
+		
+		Path path = Paths.get(fullFilePath);
+		
+		try {
+			Files.delete(path);
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 }

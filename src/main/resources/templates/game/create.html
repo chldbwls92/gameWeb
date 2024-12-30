@@ -8,9 +8,10 @@
 		<h1 class="text-center text-white mt-5">게임 추가</h1>
 			<!-- 게임 -->
 			<div class="d-flex justify-content-around m-5">
-				<div th:each="game:${gameList}">
+				<div id="game" th:each="game:${gameList}">
+					<button type="button" id="deleteBtn" class="btn btn-danger btn-sm mb-3" th:data-game-id="${game.id}">삭제</button>
 					<div class="text-center">
-						<a><img th:src="${game.imagePath}" width="150"></a>
+						<img th:src="${game.imagePath}" width="150">
 						<div th:text="${game.title}" class="w-10 text-white">리썰컴퍼니</div>
 					</div>
 				</div>
@@ -31,6 +32,28 @@
 
 <script layout:fragment="script">
 	$(document).ready(function() {
+		
+		// 삭제버튼(deleteBtn)이 클릭됐을 때
+		$(document).on("click", "#deleteBtn", function() {
+			let id = $(this).data("game-id");
+			
+			$.ajax({
+				type:"delete"
+				, url:"/game/delete"
+				, data:{"id":id}
+				, success:function(response) {
+					if(response.result == "success") {
+						location.reload();
+					} else {
+						alert("삭제 실패");
+					}
+				}
+				, error:function() {
+					alert("삭제 에러");
+				}
+			})
+		})
+		
 		
 		// 이미지 아이콘이 클릭됐을 때
 		$("#imageBtn").on("click", function() {
