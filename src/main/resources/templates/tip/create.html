@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<body>
+	<article layout:fragment="contents">
+		<h1 class="text-center text-white mt-5">꿀팁</h1>
+		<div id="gameTip" th:each="game:${game}" th:data-game-id="${game.id}" class="m-5">
+			<div class="text-center mt-5 d-flex justify-content-around align-items-center flex-column">
+				<div class="w-25"></div>
+				<h4><div th:text="${game.title}" class="w-10 text-white mt-2">리썰컴퍼니</div></h4>
+				<textarea class="form-control m-5 w-50" id="tipInput" rows="10" placeholder="내용을 입력해주세요"></textarea>
+				<button id="uploadBtn" type="button" class="btn btn-secondary">올리기</button>
+			</div>
+		</div>
+	</article>
+	
+	<script layout:fragment="script">
+		$(document).ready(function() {
+			
+			// 업로드 버튼 눌렀을 때
+			$("#uploadBtn").on("click", function() {
+				let contents = $("#tipInput").val();
+				let gameId = $("#gameTip").data("game-id");
+				
+				// 유효성 검사
+				if(contents == "") {
+					alert("내용을 입력해주세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"post"
+					, url:"/tip/create"
+					, data:{"contents":contents, "gameId":gameId}
+					, success:function(response) {
+						if(response.result == "success") {
+							location.href = "/tip/detail-view";
+						} else {
+							alert("내용을 확인해주세요");
+						}
+					}
+					, error:function() {
+						alert("업로드 에러");
+					}
+				})
+				
+			});
+		})
+	
+	
+	</script>
+	
+	
+</body>
+</html>
