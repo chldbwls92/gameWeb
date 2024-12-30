@@ -42,6 +42,18 @@ public class ReviewController {
 		model.addAttribute("game", game);
 		
 		return "review/detail";
-		
 	}
+	
+	// 리뷰 생성 화면
+	@GetMapping("/create-view")
+	public String createReview(
+			@RequestParam("id") int id
+			, Model model) {
+		
+		List<Game> game = opService.getGame(id);
+		model.addAttribute("game", game);
+		
+		return "review/create";
+	}
+	
 }

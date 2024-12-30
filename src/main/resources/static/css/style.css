@@ -4,6 +4,7 @@
 	width : 1440px;
 	height : 1024px;
 	margin : 0 auto;
+	background-color:#000000;
 }
 
 header {
@@ -23,3 +24,28 @@ header nav ul li {
 	margin:50px auto;
 }
 
+.star-rating {
+      display: flex;
+    }
+
+    .star {
+      appearance: none;
+      padding: 1px;
+    }
+
+    .star::after {
+      content: '☆';
+      color: hsl(46, 79%, 55%);
+      font-size: 20px;
+    }
+
+    .star:hover::after,
+    .star:has(~ .star:hover)::after,
+    .star:checked::after,
+    .star:has(~ .star:checked)::after {
+      content: '★';
+    }
+
+    .star:hover ~ .star::after {
+      content: '☆';
+    }
