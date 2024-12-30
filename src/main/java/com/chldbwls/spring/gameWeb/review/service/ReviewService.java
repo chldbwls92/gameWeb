@@ -1,0 +1,39 @@
+package com.chldbwls.spring.gameWeb.review.service;
+
+import org.springframework.stereotype.Service;
+
+import com.chldbwls.spring.gameWeb.review.domain.Review;
+import com.chldbwls.spring.gameWeb.review.repository.ReviewRepository;
+
+@Service
+public class ReviewService {
+	
+	private ReviewRepository reviewRepository;
+	
+	private ReviewService(ReviewRepository reviewRepository) {
+		this.reviewRepository = reviewRepository;
+	}
+	
+	// 리뷰 추가
+	public boolean addReview(
+			int gameId
+			, int userId
+			, String contents
+			, int rating) {
+		
+		Review review = Review.builder()
+		.gameId(gameId)
+		.userId(userId)
+		.contents(contents)
+		.rating(rating)
+		.build();
+		
+		try {
+			reviewRepository.save(review);
+			return true;
+		} catch(Exception e) {
+			return false;
+		}	
+	}
+
+}

@@ -6,19 +6,19 @@
 <body>
 	<article layout:fragment="contents">
 		<h1 class="text-center text-white mt-5">리뷰</h1>
-		<div id="Gamereview" th:each="game:${game}" th:data-game-id="${game.id}" class="m-5">
+		<div id="gameReview" th:each="game:${game}" th:data-game-id="${game.id}" class="m-5">
 			<div class="text-center mt-5 d-flex justify-content-around align-items-center flex-column">
 				<div class="w-25"></div>
 				<h4><div th:text="${game.title}" class="w-10 text-white mt-2">리썰컴퍼니</div></h4>
-				<div class="star-rating">
-					<input type="radio" class="star" value="1">
-					<input type="radio" class="star" value="2">
-					<input type="radio" class="star" value="3">
-					<input type="radio" class="star" value="4">
-					<input type="radio" class="star" value="5">
+				<div class="starRating">
+					<input type="radio" name="rating" class="star" value="1">
+					<input type="radio" name="rating" class="star" value="2">
+					<input type="radio" name="rating" class="star" value="3">
+					<input type="radio" name="rating" class="star" value="4">
+					<input type="radio" name="rating" class="star" value="5">
 				</div>
 				<textarea class="form-control m-5 w-50" id="reviewInput" rows="10" placeholder="내용을 입력해주세요"></textarea>
-				<button type="button" class="btn btn-secondary">올리기</button>
+				<button id="uploadBtn" type="button" class="btn btn-secondary">올리기</button>
 			</div>
 		</div>
 	</article>
@@ -26,6 +26,39 @@
 	<script layout:fragment="script">
 		$(document).ready(function() {
 			
+			// 업로드 버튼 눌렀을 때
+			$("#uploadBtn").on("click", function() {
+				let contents = $("#reviewInput").val();
+				let rating = $("input[name='rating']:checked").val();
+				let gameId = $("#gameReview").data("game-id");
+				
+				// 유효성 검사
+				if(contents == "") {
+					alert("내용을 입력해주세요");
+					return;
+				}
+				if(!rating) {
+					alert("별점을 입력해주세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"post"
+					, url:"/review/create"
+					, data:{"contents":contents, "rating":rating, "gameId":gameId}
+					, success:function(response) {
+						if(response.result == "success") {
+							location.href = "/review/detail-view";
+						} else {
+							alert("별점과 내용을 확인해주세요");
+						}
+					}
+					, error:function() {
+						alert("업로드 에러");
+					}
+				})
+				
+			});
 		})
 	
 	
