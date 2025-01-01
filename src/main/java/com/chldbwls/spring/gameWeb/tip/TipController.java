@@ -38,7 +38,7 @@ public class TipController {
 			@RequestParam("id") int id
 			, Model model) {
 		
-		List<Game> game = opService.getGame(id);
+		Game game = opService.getGame(id);
 		model.addAttribute("game", game);
 		
 		return "tip/detail";
@@ -50,7 +50,7 @@ public class TipController {
 			@RequestParam("id") int id
 			, Model model) {
 		
-		List<Game> game = opService.getGame(id);
+		Game game = opService.getGame(id);
 		model.addAttribute("game", game);
 		
 		return "tip/create";

@@ -1,6 +1,7 @@
 package com.chldbwls.spring.gameWeb.user.service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -56,5 +57,13 @@ public class UserService {
 		String encodingPassword = MD5HashingEncoder.encode(password);
 		return userRepository.findByloginIdAndPassword(loginId, encodingPassword);
 	}
+	
+	
+	// id로 유저 알아오기
+	public User getUserById(int id) {
+		 Optional<User> optionalUser = userRepository.findById(id);
+		 return optionalUser.get();	
+	}
+	
 
 }

@@ -10,15 +10,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.chldbwls.spring.gameWeb.game.domain.Game;
 import com.chldbwls.spring.gameWeb.game.service.OpService;
+import com.chldbwls.spring.gameWeb.review.dto.ReviewDTO;
+import com.chldbwls.spring.gameWeb.review.service.ReviewService;
+import com.chldbwls.spring.gameWeb.user.service.UserService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/review")
 public class ReviewController {
 	
 	private OpService opService;
+	private ReviewService reviewService;
+	private UserService userService;
 	
-	public ReviewController(OpService opService) {
+	public ReviewController(
+			OpService opService
+			, ReviewService reviewService) {
 		this.opService = opService;
+		this.reviewService = reviewService;
+		this.userService = userService;
 	}
 	
 	// 리뷰 메인화면
@@ -35,12 +46,21 @@ public class ReviewController {
 	// 리뷰 디테일 화면(게임 1개의 화면)
 	@GetMapping("/detail-view")
 	public String reviewDetail(
-			@RequestParam("id") int id
+			@RequestParam("id") int gameId
+			, HttpSession session
 			, Model model) {
+
 		
-		List<Game> game = opService.getGame(id);
+		int userId = (Integer)session.getAttribute("id");
+		
+		// 특정 게임의 리뷰리스트
+		List<ReviewDTO> reviewDTOList = reviewService.getReviewList(gameId, userId);
+		Game game = opService.getGame(gameId);
+		
+		// model 이용하여 데이터 추가
 		model.addAttribute("game", game);
-		
+		model.addAttribute("reviewList", reviewDTOList);
+
 		return "review/detail";
 	}
 	
@@ -50,7 +70,7 @@ public class ReviewController {
 			@RequestParam("id") int id
 			, Model model) {
 		
-		List<Game> game = opService.getGame(id);
+		Game game = opService.getGame(id);
 		model.addAttribute("game", game);
 		
 		return "review/create";
