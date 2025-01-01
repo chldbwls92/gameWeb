@@ -1,8 +1,10 @@
 package com.chldbwls.spring.gameWeb.tip;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,12 +29,13 @@ public class TipRestController {
 	public Map<String, String> createTip(
 			@RequestParam("gameId") int gameId
 			, @RequestParam("contents") String contents
+			, @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate createdAt
 			, HttpSession session) {
 		
 		int userId = (Integer)session.getAttribute("userId");
 		
 		Map<String, String> resultMap = new HashMap<>();
-		if(tipService.addTip(gameId, userId, contents)) {
+		if(tipService.addTip(gameId, userId, contents,createdAt)) {
 			resultMap.put("result", "success");
 		} else {
 			resultMap.put("result", "fail");

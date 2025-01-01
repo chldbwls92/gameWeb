@@ -1,5 +1,8 @@
 package com.chldbwls.spring.gameWeb.review.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Service;
 
 import com.chldbwls.spring.gameWeb.review.domain.Review;
@@ -19,13 +22,18 @@ public class ReviewService {
 			int gameId
 			, int userId
 			, String contents
-			, int rating) {
+			, int rating
+			, LocalDate createdAt) {
+		
+		// localDateTime을 dateTime으로 변경
+		LocalDateTime createdAtDateTime = createdAt.atStartOfDay();
 		
 		Review review = Review.builder()
 		.gameId(gameId)
 		.userId(userId)
 		.contents(contents)
 		.rating(rating)
+		.createdAt(createdAtDateTime)
 		.build();
 		
 		try {
