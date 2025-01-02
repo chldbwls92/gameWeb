@@ -77,6 +77,7 @@ public class UserRestController {
 			// 사용자 정보 가져오기
 			HttpSession session = request.getSession();
 			
+			// 로그인한 사용자 정보 저장
 			session.setAttribute("userId", user.getId()); // 사용자 프라이머리키
 			session.setAttribute("userLoginId", user.getLoginId()); // 사용자 로그인아이디
 			

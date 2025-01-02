@@ -1,6 +1,6 @@
 package com.chldbwls.spring.gameWeb.review.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -17,7 +17,7 @@ public class ReviewDTO {
 	private int rating;
 	
 	// 글이 써진 시간
-	private LocalDate createdAt;
+	private LocalDateTime createdAt;
 	
 	// 글을 쓴 사람의 닉네임
 	private String loginId;

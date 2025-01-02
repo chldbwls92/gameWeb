@@ -46,12 +46,12 @@ public class ReviewController {
 	// 리뷰 디테일 화면(게임 1개의 화면)
 	@GetMapping("/detail-view")
 	public String reviewDetail(
-			@RequestParam("id") int gameId
+			@RequestParam("gameId") int gameId
 			, HttpSession session
 			, Model model) {
 
 		
-		int userId = (Integer)session.getAttribute("id");
+		int userId = (Integer)session.getAttribute("userId");
 		
 		// 특정 게임의 리뷰리스트
 		List<ReviewDTO> reviewDTOList = reviewService.getReviewList(gameId, userId);

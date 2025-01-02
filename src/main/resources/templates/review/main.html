@@ -10,7 +10,7 @@
 			<div class="d-flex justify-content-around m-5">
 				<div th:each="game:${gameList}">
 					<div class="text-center">
-						<a th:href="|/review/detail-view?id=${game.id}|"><img th:src="${game.imagePath}" width="150"></a>
+						<a th:href="|/review/detail-view?gameId=${game.id}|"><img th:src="${game.imagePath}" width="150"></a>
 						<div th:text="${game.title}" class="w-10 text-white">리썰컴퍼니</div>
 					</div>
 				</div>

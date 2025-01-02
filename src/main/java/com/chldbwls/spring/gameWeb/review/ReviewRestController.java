@@ -1,10 +1,9 @@
 package com.chldbwls.spring.gameWeb.review;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,14 +30,13 @@ public class ReviewRestController {
 			@RequestParam("gameId") int gameId
 			, @RequestParam("contents") String contents
 			, @RequestParam("rating") int rating
-			, @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate createdAt
 			, HttpSession session) {
 		
 		// 어떤 사용자인지 알기 위해
 		int userId = (Integer)session.getAttribute("userId");
 		
 		Map<String, String> resultMap = new HashMap<>();
-		if(reviewService.addReview(gameId, userId, contents, rating, createdAt)) {
+		if(reviewService.addReview(gameId, userId, contents, rating)) {
 			resultMap.put("result", "success");
 		} else {
 			resultMap.put("result", "fail");

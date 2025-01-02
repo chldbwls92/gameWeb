@@ -7,7 +7,7 @@
 	<article layout:fragment="contents">
 		<!-- 게임 -->
 		<!-- game id로 접근해야돼 -->
-		<div id="Gamereview" th:each="game:${game}" th:data-game-id="${game.id}">
+		<div id="Gamereview" th:data-game-id="${game.id}">
 			<div class="text-center mt-5">
 				<a><img th:src="${game.imagePath}" width="150"></a>
 				<div th:text="${game.title}" class="w-10 text-white mt-2">리썰컴퍼니</div>

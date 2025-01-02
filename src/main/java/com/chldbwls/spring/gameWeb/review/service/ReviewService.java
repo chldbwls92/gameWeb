@@ -35,18 +35,13 @@ public class ReviewService {
 			int gameId
 			, int userId
 			, String contents
-			, int rating
-			, LocalDate createdAt) {
-		
-		// localDateTime을 dateTime으로 변경
-		LocalDateTime createdAtDateTime = createdAt.atStartOfDay();
+			, int rating) {
 		
 		Review review = Review.builder()
 		.gameId(gameId)
 		.userId(userId)
 		.contents(contents)
 		.rating(rating)
-		.createdAt(createdAtDateTime)
 		.build();
 		
 		try {
@@ -76,12 +71,14 @@ public class ReviewService {
 			// 로그인한 사용자가 해당 리뷰에 좋아요를 눌렀는지 여부
 			boolean isLike = likeService.isLike("Review", review.getId(), loginUserId);
 			
+			
 	        ReviewDTO reviewDTO = ReviewDTO.builder()
 	                .gameId(gameId)
 	                .userId(userId)
 	                .loginId(user.getLoginId())
 	                .contents(review.getContents())
 	                .rating(review.getRating())
+	                .createdAt(review.getCreatedAt())
 	                .likeCount(likeCount)
 	                .isLike(isLike)
 	                .build();
