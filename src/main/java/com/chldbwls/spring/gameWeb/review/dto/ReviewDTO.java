@@ -10,6 +10,8 @@ import lombok.Getter;
 @Getter
 public class ReviewDTO {
 	
+	private int id;
+	
 	// 글 내용
 	private int gameId;
 	private int userId;

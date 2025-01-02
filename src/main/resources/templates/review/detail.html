@@ -17,8 +17,21 @@
 				<a th:href="|/review/create-view?id=${game.id}|"><button type="button" class="btn btn-secondary ml-3 m-5">글쓰기</button></a>
 			</div>
 			<!-- 리뷰댓글 -->
-			<div>
-				<!-- <div th:text="${review.loginId}"></div> -->
+			<div class="text-center">
+				<div th:each="review:${reviewList}">
+					<div class="d-flex text-white">
+						<div th:text="${review.loginId}" class="mr-3 text-center">유저이름</div>
+						<span th:text="${#temporals.format(review.createdAt, 'yyyy-MM-dd')}"></span>
+						<div class="p-2">
+							<i th:unless="${review.isLike}" class="bi bi-heart text-danger like-btn" th:data-review-id="${reveiw.id}"></i>
+							<i th:if="${review.isLike}" class="bi bi-heart-fill text-danger unlike-btn" th:data-post-id="${reveiw.id}"></i>
+							<span th:text="|좋아요 ${review.likeCount}개|">좋아요 11개</span> 
+						</div>
+					</div>
+					<div>
+					
+					</div>
+				</div>
 			</div>
 		</div>
 		
