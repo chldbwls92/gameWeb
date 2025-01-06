@@ -6,20 +6,81 @@
 <body>
 	<article layout:fragment="contents">
 		<!-- 게임 -->
-		<div id="Gametip" th:each="game:${game}" th:data-game-id="${game.id}">
+		<div id="GameTip" th:data-game-id="${game.id}">
 			<div class="text-center mt-5">
 				<a><img th:src="${game.imagePath}" width="150"></a>
-				<div th:text="${game.title}" class="w-10 text-white mt-2">리그오브레전드</div>
+				<div th:text="${game.title}" class="w-10 text-white mt-2">리썰컴퍼니</div>
 			</div>
 			<div class="d-flex justify-content-center">
 				<h2 class="text-white mt-5">꿀팁</h2>
 				<a th:href="|/tip/create-view?id=${game.id}|"><button type="button" class="btn btn-secondary ml-3 m-5">글쓰기</button></a>
 			</div>
-			<!-- 댓글 -->
-			<div>
-				<!-- <div th:text="${tip.loginId}"></div> -->
+		</div>
+		<!-- 꿀팁 댓글 -->
+		<div class="text-center">
+			<div th:each="tip:${tipList}" class="mt-2">
+				<div class="d-flex text-white justify-content-center align-items-center">
+					<div th:text="${tip.loginId}" class="mr-2">유저이름</div>
+					<span class="ml-2" th:text="${#temporals.format(tip.createdAt, 'yyyy-MM-dd')}"></span>
+					<div class="p-2">
+						<i th:unless="${tip.isLike}" class="bi bi-heart text-danger like-btn" th:data-tip-id="${tip.id}"></i>
+						<i th:if="${tip.isLike}" class="bi bi-heart-fill text-danger unlike-btn" th:data-tip-id="${tip.id}"></i>
+						<span th:text="${tip.likeCount}">3</span>
+					</div>
+				</div>
+				<div th:text="${tip.contents}" class="text-white"></div>
 			</div>
 		</div>
 	</article>
+	
+	<script layout:fragment="script">
+		$(document).ready(function() {
+			
+			// 좋아요 취소
+			$(".unlike-btn").on("click", function() {
+				let tipId = $(this).data("tip-id");
+				
+				$.ajax({
+					type:"delete"
+					, url:"/like/delete"
+					, data:{targetId:tipId, targetName:"tip"}
+					, success:function(response) {
+						if(response.result == "success") {
+							location.reload();
+						} else {
+							alert("좋아요 취소 실패");
+						}
+					}
+					, error:function() {
+						alert("좋아요 취소 에러!");
+					}
+				})
+			});
+			
+			
+			// 좋아요 추가
+			$(".like-btn").on("click", function() {
+				let tipId = $(this).data("tip-id");
+				
+				$.ajax({
+					type:"post"
+					, url:"/like/add"
+					, data:{targetId:tipId, targetName:"tip"}
+					, success:function(response) {
+						if(response.result == "success") {
+							location.reload();
+						} else {
+							alert("좋아요 실패");
+						}
+					}
+					, error:function() {
+						alert("좋아요 에러!");
+					}
+				})
+			});
+			
+			
+		});
+	</script>
 </body>
 </html>

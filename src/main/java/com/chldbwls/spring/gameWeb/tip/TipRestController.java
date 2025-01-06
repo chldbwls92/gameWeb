@@ -1,6 +1,7 @@
 package com.chldbwls.spring.gameWeb.tip;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,13 +30,12 @@ public class TipRestController {
 	public Map<String, String> createTip(
 			@RequestParam("gameId") int gameId
 			, @RequestParam("contents") String contents
-			, @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate createdAt
 			, HttpSession session) {
 		
 		int userId = (Integer)session.getAttribute("userId");
 		
 		Map<String, String> resultMap = new HashMap<>();
-		if(tipService.addTip(gameId, userId, contents,createdAt)) {
+		if(tipService.addTip(gameId, userId, contents)) {
 			resultMap.put("result", "success");
 		} else {
 			resultMap.put("result", "fail");

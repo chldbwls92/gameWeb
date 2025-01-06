@@ -10,15 +10,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.chldbwls.spring.gameWeb.game.domain.Game;
 import com.chldbwls.spring.gameWeb.game.service.OpService;
+import com.chldbwls.spring.gameWeb.tip.dto.TipDTO;
+import com.chldbwls.spring.gameWeb.tip.service.TipService;
+import com.chldbwls.spring.gameWeb.user.service.UserService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/tip")
 public class TipController {
 	
 	private OpService opService;
+	private TipService tipService;
+	private UserService userService;
 	
-	public TipController(OpService opService) {
+	public TipController(
+			OpService opService
+			, TipService tipService
+			, UserService userService) {
 		this.opService = opService;
+		this.tipService = tipService;
+		this.userService = userService;
 	}
 	
 	
@@ -35,11 +47,17 @@ public class TipController {
 	// 팁 세부화면
 	@GetMapping("/detail-view")
 	public String detailTip(
-			@RequestParam("id") int id
-			, Model model) {
+			@RequestParam("gameId") int gameId
+			, Model model
+			, HttpSession session) {
 		
-		Game game = opService.getGame(id);
+		int userId = (Integer)session.getAttribute("userId");
+		
+		List<TipDTO> tipDTOList = tipService.getTipList(gameId, userId);
+		Game game = opService.getGame(gameId);
+		
 		model.addAttribute("game", game);
+		model.addAttribute("tipList", tipDTOList);
 		
 		return "tip/detail";
 	}
