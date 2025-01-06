@@ -11,6 +11,23 @@
 			<div class="text-center mt-5">
 				<a><img th:src="${game.imagePath}" width="150"></a>
 				<div th:text="${game.title}" class="w-10 text-white mt-2">리썰컴퍼니</div>
+				<div class="starRatingResult">
+				    <span class="static-star" th:if="${ratingAvg >= 1}">★</span>
+				    <span class="static-star" th:unless="${ratingAvg >= 1}">☆</span>
+				    
+				    <span class="static-star" th:if="${ratingAvg >= 2}">★</span>
+				    <span class="static-star" th:unless="${ratingAvg >= 2}">☆</span>
+				    
+				    <span class="static-star" th:if="${ratingAvg >= 3}">★</span>
+				    <span class="static-star" th:unless="${ratingAvg >= 3}">☆</span>
+				    
+				    <span class="static-star" th:if="${ratingAvg >= 4}">★</span>
+				    <span class="static-star" th:unless="${ratingAvg >= 4}">☆</span>
+				    
+				    <span class="static-star" th:if="${ratingAvg >= 5}">★</span>
+				    <span class="static-star" th:unless="${ratingAvg >= 5}">☆</span>
+				</div>
+
 			</div>
 			<div class="d-flex justify-content-center">
 				<h2 class="text-white mt-5">리뷰</h2>
@@ -18,23 +35,88 @@
 			</div>
 			<!-- 리뷰댓글 -->
 			<div class="text-center">
-				<div th:each="review:${reviewList}">
-					<div class="d-flex text-white">
-						<div th:text="${review.loginId}" class="mr-3 text-center">유저이름</div>
-						<span th:text="${#temporals.format(review.createdAt, 'yyyy-MM-dd')}"></span>
+				<div th:each="review:${reviewList}" class="mt-2">
+					<div class="d-flex text-white justify-content-center align-items-center">
+						<div th:text="${review.loginId}" class="mr-2">유저이름</div>
+						<div class="starRatingResult">
+							<span class="static-star" th:if="${review.rating >= 1}" >★</span>
+							<span class="static-star" th:unless="${review.rating >= 1}" >☆</span>
+							
+							<span class="static-star" th:if="${review.rating >= 2}" >★</span>
+							<span class="static-star" th:unless="${review.rating >= 2}" >☆</span>
+							
+							<span class="static-star" th:if="${review.rating >= 3}" >★</span>
+							<span class="static-star" th:unless="${review.rating >= 3}" >☆</span>
+							
+							<span class="static-star" th:if="${review.rating >= 4}" >★</span>
+							<span class="static-star" th:unless="${review.rating >= 4}" >☆</span>
+							
+							<span class="static-star" th:if="${review.rating >= 5}" >★</span>
+							<span class="static-star" th:unless="${review.rating >= 5}" >☆</span>
+						</div>
+
+						<span class="ml-2" th:text="${#temporals.format(review.createdAt, 'yyyy-MM-dd')}"></span>
 						<div class="p-2">
-							<i th:unless="${review.isLike}" class="bi bi-heart text-danger like-btn" th:data-review-id="${reveiw.id}"></i>
-							<i th:if="${review.isLike}" class="bi bi-heart-fill text-danger unlike-btn" th:data-post-id="${reveiw.id}"></i>
-							<span th:text="|좋아요 ${review.likeCount}개|">좋아요 11개</span> 
+							<i th:unless="${review.isLike}" class="bi bi-heart text-danger like-btn" th:data-review-id="${review.id}"></i>
+							<i th:if="${review.isLike}" class="bi bi-heart-fill text-danger unlike-btn" th:data-review-id="${review.id}"></i>
+							<span th:text="${review.likeCount}">3</span>
 						</div>
 					</div>
-					<div>
-					
-					</div>
+					<div th:text="${review.contents}" class="text-white"></div>
 				</div>
 			</div>
 		</div>
 		
 	</article>
+	
+	<script layout:fragment="script">
+		$(document).ready(function() {
+			
+			$(".unlike-btn").on("click", function() {
+				let reviewId = $(this).data("review-id");
+				
+				$.ajax({
+					type:"delete"
+					, url:"/like/delete"
+					, data:{targetId:reviewId, targetName:"review"}
+					, success:function(response) {
+						if(response.result == "success") {
+							location.reload();
+						} else {
+							alert("좋아요 취소 실패");
+						}
+					}
+					, error:function() {
+						alert("좋아요 취소 에러!");
+					}
+				})
+				
+			})
+			
+			
+			// like btn 누를 때(좋아요)
+			$(".like-btn").on("click", function() {
+				let reviewId = $(this).data("review-id");
+				
+				$.ajax({
+					type:"post"
+					, url:"/like/add"
+					, data:{targetId:reviewId, targetName:"review"}
+					, success:function(response) {
+						if(response.result == "success") {
+							location.reload();
+						} else {
+							alert("좋아요 실패");
+						}
+					}
+					, error:function() {
+						alert("좋아요 에러!");
+					}
+				})
+			});
+		});
+	
+	</script>
+	
 </body>
 </html>

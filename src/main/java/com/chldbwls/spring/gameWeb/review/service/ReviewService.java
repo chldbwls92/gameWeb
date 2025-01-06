@@ -61,7 +61,7 @@ public class ReviewService {
 		
 		for(Review review:reviewList) {
 			// 리뷰 작성자 정보
-			int userId = review.getId();
+			int userId = review.getUserId();
 			User user = userService.getUserById(userId);
 			
 			// 리뷰 좋아요 수
@@ -73,6 +73,7 @@ public class ReviewService {
 			
 			
 	        ReviewDTO reviewDTO = ReviewDTO.builder()
+	        		.id(review.getId())
 	                .gameId(gameId)
 	                .userId(userId)
 	                .loginId(user.getLoginId())
@@ -86,7 +87,28 @@ public class ReviewService {
 	            reviewDTOList.add(reviewDTO);
 		}
 		return reviewDTOList;
-		
 	}
+	
+	// 각 게임에 해당되는 리뷰 평점
+	public double getRatingAvgByGameId(int gameId) {
+		
+		// 해당 게임의 모든 리뷰 가져오기
+		List<Review> reviewList = reviewRepository.findByGameId(gameId);
+		
+		// 리뷰가 없을 경우 0.0(double) return
+		if(reviewList.isEmpty()) {
+			return 0.0;
+		}
+		
+		// 평점 다 더하기
+		int result = 0;
+		for(Review review : reviewList) {
+			result += review.getRating();
+		}
+		
+		// 나눈 거 return
+		return (double) result / reviewList.size();
+	}
+	
 
 }

@@ -1,6 +1,7 @@
 package com.chldbwls.spring.gameWeb.review;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,9 +58,14 @@ public class ReviewController {
 		List<ReviewDTO> reviewDTOList = reviewService.getReviewList(gameId, userId);
 		Game game = opService.getGame(gameId);
 		
+		// 각 게임 평점
+		double ratingAvg = reviewService.getRatingAvgByGameId(gameId);
+		int ratingResult = (int) Math.round(ratingAvg);
+		
 		// model 이용하여 데이터 추가
 		model.addAttribute("game", game);
 		model.addAttribute("reviewList", reviewDTOList);
+		model.addAttribute("ratingAvg", ratingResult);
 
 		return "review/detail";
 	}

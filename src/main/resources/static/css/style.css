@@ -24,28 +24,40 @@ header nav ul li {
 	margin:50px auto;
 }
 
+
 .star-rating {
-      display: flex;
-    }
+	display: flex;
+}
 
-    .star {
-      appearance: none;
-      padding: 1px;
-    }
+.star {
+	appearance: none;
+	padding: 1px;
+}
 
-    .star::after {
-      content: '☆';
-      color: hsl(46, 79%, 55%);
-      font-size: 20px;
-    }
+.star::after {
+	content: '☆';
+	color: hsl(46, 79%, 55%);
+	font-size: 20px;
+}
 
-    .star:hover::after,
-    .star:has(~ .star:hover)::after,
-    .star:checked::after,
-    .star:has(~ .star:checked)::after {
-      content: '★';
-    }
+.star:hover::after,
+.star:has(~ .star:hover)::after,
+.star:checked::after,
+.star:has(~ .star:checked)::after {
+	content: '★';
+}
 
-    .star:hover ~ .star::after {
-      content: '☆';
-    }
+.star:hover ~ .star::after {
+	content: '☆';
+}
+    
+.static-star {
+  font-size: 20px;
+  color: hsl(46, 79%, 55%);
+}
+
+.static-star.active {
+  color: hsl(46, 100%, 45%);
+}
+    
+    
