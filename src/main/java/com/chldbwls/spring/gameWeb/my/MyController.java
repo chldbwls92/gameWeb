@@ -9,8 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MyController {
 	
 	@GetMapping("/main-view")
-	public String main() {
+	public String myMain() {
 		return "my/main";
+	}
+	
+	@GetMapping("/detail-view")
+	public String myDetail() {
+		return "my/detail";
 	}
 
 }

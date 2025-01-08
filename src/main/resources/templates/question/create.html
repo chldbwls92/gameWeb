@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<body>
+	<article layout:fragment="contents">
+		<h1 class="text-center text-white mt-5">문의사항</h1>
+		<div class="d-flex justify-content-around align-items-center flex-column">
+			<textarea class="form-control m-5 w-50" id="questionInput" rows="14" placeholder="개선사항이나, 오류, 추가하고싶은 게임이 있으신 경우 적어주세요"></textarea>
+			<button id="sendBtn" type="button" class="btn btn-secondary">보내기</button>
+		</div>
+	</article>
+	
+	<script layout:fragment="script">
+		$(document).ready(function() {
+			
+			//sendBtn 클릭했을 때
+			$("#sendBtn").on("click", function() {
+				let contents = $("#questionInput").val();
+				
+				if(contents == "") {
+					alert("내용을 입력해주세요");
+					return;
+				}
+				
+				$.ajax({
+					type:"post"
+					, url:"/question/create"
+					, data:{"contents":contents}
+					, success:function(response) {
+						if(reponse.result == "success") {
+							window.history.back();
+						} else {
+							alert("내용을 확인해주세요");
+						}
+					}
+					, error:function() {
+						alert("업로드 에러");
+					}
+				})
+			});
+		});
+	</script>
+</body>
+</html>
