@@ -23,14 +23,12 @@ public class ReviewController {
 	
 	private OpService opService;
 	private ReviewService reviewService;
-	private UserService userService;
 	
 	public ReviewController(
 			OpService opService
 			, ReviewService reviewService) {
 		this.opService = opService;
 		this.reviewService = reviewService;
-		this.userService = userService;
 	}
 	
 	// 리뷰 메인화면
