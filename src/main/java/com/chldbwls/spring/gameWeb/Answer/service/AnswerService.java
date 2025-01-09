@@ -40,8 +40,8 @@ public class AnswerService {
 	// 모든 답변 가져오기
 	public List<Answer> getAnswerList(int questionId) {
 		
-		List<Answer> answerList = new ArrayList<>();
-		
+		 List<Answer> answerList = answerRepository.findByQuestionId(questionId);
+		 return answerList;
 	}
 	
 

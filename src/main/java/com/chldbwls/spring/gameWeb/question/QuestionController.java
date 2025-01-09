@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.chldbwls.spring.gameWeb.question.domain.Question;
+import com.chldbwls.spring.gameWeb.question.dto.QuestionDTO;
 import com.chldbwls.spring.gameWeb.question.service.QuestionService;
 
 @Controller
@@ -24,7 +24,8 @@ public class QuestionController {
 	@GetMapping("/main-view")
 	public String main(Model model) {
 		
-		List<Question> questionList = questionService.getAllQuestion();
+		List<QuestionDTO> questionList = questionService.getQuestionList();
+		
 		model.addAttribute("questionList", questionList);
 		return "question/main";
 	}
@@ -34,5 +35,16 @@ public class QuestionController {
 	public String questionCreate() {
 		return "question/create";
 	}
+	
+	// 문의사항 운영자 뷰
+	@GetMapping("/op-view")
+	public String questionOp(Model model) {
+		List<QuestionDTO> questionList = questionService.getQuestionList();
+		
+		model.addAttribute("questionList", questionList);
+		return "question/op";
+	}
+	
+	
 
 }

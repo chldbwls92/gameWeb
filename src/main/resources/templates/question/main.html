@@ -11,9 +11,16 @@
 		</div>
 		
 		<!-- 문의사항 list -->
-		<div th:each="question:${questionList}" class="text-center">
-			<div th:text="question.loginId">유저이름</div>
-			<div>내용</div>
+		<div th:each="question:${questionList}" class="text-center text-white">
+			<!-- 사용자 문의사항 내용 -->
+			<div>
+				<div th:text="${question.loginId}">유저이름</div>
+				<div th:text="${question.contents}">내용</div>
+			</div>
+			<!-- 운영자 답글 -->
+			<div th:each="answer:${question.answerList}" class="text-warning">
+				<div th:text="| -> 운영자 : ${answer.contents}|"> -> 운영자 : 운영자 답글 내용</div>
+			</div>
 		</div>
 
 	</article>

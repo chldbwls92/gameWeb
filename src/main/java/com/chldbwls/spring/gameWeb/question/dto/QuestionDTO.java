@@ -13,8 +13,12 @@ public class QuestionDTO {
 	
 	private int id;
 	
+	private int questionId;
+	
 	private int userId;
 	private String loginId;
+	
+	private String contents;
 	
 	private List<Answer> answerList;
 

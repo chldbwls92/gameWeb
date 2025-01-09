@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.chldbwls.spring.gameWeb.Answer.domain.Answer;
 import com.chldbwls.spring.gameWeb.Answer.service.AnswerService;
 import com.chldbwls.spring.gameWeb.question.domain.Question;
 import com.chldbwls.spring.gameWeb.question.dto.QuestionDTO;
@@ -56,7 +57,7 @@ public class QuestionService {
 	// 문의사항 + 답변 모두 가져오는 리스트
 	public List<QuestionDTO> getQuestionList() {
 		
-		List<Question> questionList = questionRepository.findAllByOrderByDesc();
+		List<Question> questionList = questionRepository.findAllByOrderByIdDesc();
 		
 		List<QuestionDTO> questionDTOList = new ArrayList<>();
 		for(Question question:questionList) {
@@ -64,10 +65,20 @@ public class QuestionService {
 			int userId = question.getUserId();
 			User user = userService.getUserById(userId);
 			
-			List<Answer> answerList = 
+			// 해당 문의사항(question.getId)에 대한 답변 가져오기
+			List<Answer> answerList = answerService.getAnswerList(question.getId());
 			
+			QuestionDTO result = QuestionDTO.builder()
+					.questionId(question.getId())
+					.userId(userId)
+					.loginId(user.getLoginId())
+					.contents(question.getContents())
+					.answerList(answerList)
+					.build();
+			
+			questionDTOList.add(result);
 		}
-		
+		return questionDTOList;
 	}
 
 }
