@@ -9,8 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ClipController {
 	
 	@GetMapping("/main-view")
-	public String ClipMain() {
+	public String clipMain() {
 		return "clip/main";
+	}
+	
+	@GetMapping("/create-view")
+	public String clipCreate() {
+		return "clip/create";
 	}
 
 }

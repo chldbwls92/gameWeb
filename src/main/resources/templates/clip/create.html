@@ -7,8 +7,68 @@
 	<article layout:fragment="contents">
 		<h1 class="text-center text-white mt-5">클립</h1>
 		
+		<div class="d-flex flex-column align-items-center justify-content-center">
+		    <input id="titleInput" type="text" style="width:500px;" class="mt-5 small rounded text-center" placeholder="제목을 입력해주세요">
+		    <div class="d-flex align-items-center mt-3">
+		        <i id="imageBtn" class="bi bi-image btn text-white btn-lg"></i>
+		        <input type="file" id="fileInput" class="d-none">
+		        <button id="createBtn" type="button" class="btn bg-secondary text-white">입력</button>
+		    </div>
+		</div>
 	
 	</article>
+	
+	<script layout:fragment="script">
+		$(document).ready(function() {
+			
+			// 이미지 아이콘 클릭됐을 때
+			$("#imageBtn").on("click", function() {
+				$("#fileInput").click();
+			})
+			
+			// 클립 추가 버튼 클릭했을 때
+			$("#createBtn").on("click", function() {
+				let title = $("#titleInput").val();
+				let file = $("#fileInput")[0].files[0];
+				
+				if(title == "") {
+					alert("제목을 입력해주세요");
+					return;
+				}
+				
+				if(file == null) {
+					alert("동영상 파일을 선택해주세요");
+					return;
+				}
+				
+				let formData = new FormData();
+				
+				formData.append("title", title);
+				formData.append("videoPath", file);
+				
+				$.ajax({
+					type:"post"
+					, url:"/clip/create"
+					, data:formData
+					, enctype:"multipart/form-data"
+					, processData:false
+					, contentType:false
+					, success:function(response) {
+						if(response.result == "success") {
+							location.href = "/clip/main-view";
+						} else {
+							alert("클립 추가 실패");
+						}
+					}
+					, error:function() {
+						alert("클립 추가 에러");
+					}
+				})
+			})
+		})
+	
+	
+	</script>
 
 
 </body>

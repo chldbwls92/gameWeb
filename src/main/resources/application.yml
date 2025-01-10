@@ -20,6 +20,10 @@ spring:
         cache: false
     application:
         name: Blastagram
+    servlet:
+        multipart:
+            max-file-size: 300MB
+            max-request-size: 300MB
 
 mybatis:
     mapper-locations: mappers/*Mapper.xml

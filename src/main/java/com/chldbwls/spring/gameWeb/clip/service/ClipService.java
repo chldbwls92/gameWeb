@@ -26,7 +26,16 @@ public class ClipService {
 				.userId(userId)
 				.title(title)
 				.videoPath(videoPath)
-				.createdAt(createdAt)
+				.build();
+		
+		try {
+			clipRepository.save(clip);
+			return true;
+		} catch(Exception e) {
+			return false;
+		}
 	}
 
+	
+	
 }

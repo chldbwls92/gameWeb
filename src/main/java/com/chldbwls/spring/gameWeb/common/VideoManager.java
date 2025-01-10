@@ -12,7 +12,7 @@ public class VideoManager {
 // 동영상 관리
 	
 	// 동영상 파일 기본 저장 경로
-	public final static String FILE_UPLOAD_PATH = "C:\\gameProject\\videoUpload";
+	public final static String FILE_UPLOAD_PATH = "D:\\CujGameWeb\\videoClip";
 	
 	// 동영상 파일 저장
 	public static String saveVideo(int userId, MultipartFile file) {
