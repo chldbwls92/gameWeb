@@ -44,7 +44,7 @@ public class OpService {
 	
 	// 특정 게임 하나
 	public Game getGame(int id) {
-		Game game = opRepository.findAllByid(id);
+		Game game = opRepository.findAllById(id);
 		return game;
 	}
 	

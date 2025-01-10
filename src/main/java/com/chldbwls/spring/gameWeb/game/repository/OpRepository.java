@@ -6,5 +6,5 @@ import com.chldbwls.spring.gameWeb.game.domain.Game;
 
 public interface OpRepository extends JpaRepository<Game, Integer>{
 
-	public Game findAllByid(int id);
+	public Game findAllById(int id);
 }
