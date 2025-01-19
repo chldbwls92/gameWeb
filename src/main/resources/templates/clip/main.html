@@ -6,11 +6,14 @@
 <body>
 	<article layout:fragment="contents">
 		<h1 class="text-center text-white mt-5">클립</h1>
+		<div id="clipMain" th:each="clip:${clipList}" th:data-clip-id="${clip.id}">
+			<div class="text-white mt-5 d-flex justify-content-around align-items-center flex-column">
+				<a><video th:src="${clip.videoPath}" width="320">비디오 썸네일</video></a>
+				<div th:text="${clip.title}">죽기 3초전</div>
+				<div th:text="${clip.loginId}" class="text-small">user_name</div>
+			</div>
+		</div>
 		<a href="/clip/create-view"><button type="button" class="btn btn-secondary ml-3 m-5">글쓰기</button></a>
-		
-	
 	</article>
-
-
 </body>
 </html>

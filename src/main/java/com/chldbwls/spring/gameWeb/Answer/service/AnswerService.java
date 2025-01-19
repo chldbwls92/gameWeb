@@ -13,7 +13,6 @@ import com.chldbwls.spring.gameWeb.user.service.UserService;
 public class AnswerService {
 	
 	private AnswerRepository answerRepository;
-	private UserService userService;
 	
 	private AnswerService(AnswerRepository answerRepository) {
 		this.answerRepository = answerRepository;
