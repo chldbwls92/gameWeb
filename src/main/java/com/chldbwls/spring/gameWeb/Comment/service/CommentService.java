@@ -1,5 +1,8 @@
 package com.chldbwls.spring.gameWeb.Comment.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.chldbwls.spring.gameWeb.Comment.domain.Comment;
@@ -39,5 +42,9 @@ public class CommentService {
 		}
 	}
 	
+	// commentList 가져오기
+	public List<Comment> getCommentList(int clipId) {
+		return commentRepository.findByClipId(clipId);	
+	}
 	
 }
