@@ -49,6 +49,8 @@ public class ReviewService {
 			return false;
 		}	
 	}
+	
+	// 특정 게임에 대한 리뷰
 									// 조회된 리뷰마다 리뷰를 작성한 사람의 로그인id 가져오기
 	public List<ReviewDTO> getReviewList(int gameId, int loginUserId) {
 		
