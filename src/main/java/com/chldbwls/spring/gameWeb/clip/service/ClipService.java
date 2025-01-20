@@ -69,12 +69,18 @@ public class ClipService {
 		for(Clip clip : clipList) {
 			User user = userService.getUserById(clip.getUserId());
 			
+			// 리뷰 좋아요 수
+			// 타겟이름을 review table이기 때문에 review로 고정
+			int likeCount = likeService.getLikeCount("Clip", clip.getId());
+			
+			
 			ClipDTO clipDTO = ClipDTO.builder()
 					.id(clip.getId())
 					.title(clip.getTitle())
 					.videoPath(clip.getVideoPath())
 					.userId(clip.getUserId())
 					.loginId(user.getLoginId())
+					.likeCount(likeCount)
 					.createdAt(clip.getCreatedAt())
 					.build();
 			clipDTOList.add(clipDTO);
@@ -86,30 +92,13 @@ public class ClipService {
 	
 	
 	// 특정 clip의 한 화면
-//	public ClipDTO getClipList(int clipId, int loginUserId) {
-//		
-//		List<Clip> clipList = new ArrayList<>():
-//		
-//		List<ClipDTO> clipDTOList = new ArrayList
-//		for(Clip clip:clipList) {
-//			
-//			// 로그인한 사용자가 해당 클립에 좋아요 눌렀는지 여부
-//			boolean isLike = likeService.isLike("Clip", clipId, loginUserId);
-//			
-//			// 클립의 좋아요 수
-//			int likeCount = likeService.getLikeCount("Clip", clipId);
-//			
-//			// 해당 클립의 댓글 목록
-//			List<Comment> commentList = commentService.getCommentList(clipId);
-//			
-//			// 작성자 정보
-//			User user = userService.getUserById(loginUserId);
-//			
-//			ClipDTO clipDTO = CardDTO.builder()
-//					.t
-//			
-//		}
-//	}
-//	
+	public ClipDTO getClipList(int clipId, int loginUserId) {
+		
+		List<Clip> clipList = new ArrayList<>();
+		
+		
+
+	}
+	
 	
 }

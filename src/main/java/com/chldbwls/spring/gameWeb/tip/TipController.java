@@ -72,9 +72,5 @@ public class TipController {
 		model.addAttribute("game", game);
 		
 		return "tip/create";
-	}
-	
-	
-	
-		
+	}	
 }
