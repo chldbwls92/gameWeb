@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.chldbwls.spring.gameWeb.Comment.service.CommentService;
 import com.chldbwls.spring.gameWeb.clip.domain.Clip;
 import com.chldbwls.spring.gameWeb.clip.dto.ClipDTO;
 import com.chldbwls.spring.gameWeb.clip.repository.ClipRepository;
@@ -54,30 +53,31 @@ public class ClipService {
 	
 	// 특정 클립 하나의 모든 정보 가져오기
 	public ClipDTO getClip(int clipId) {
-		// 클립 한개 정보 가져오기
-		Optional<Clip> clip = clipRepository.findById(clipId);
-		List<ClipDTO> clipDTO = new ArrayList<>();
 		
-		for(Clip clipResult : clip) {
-			User user = userService.getUserById(clip.getUserId());
-			
-			// 리뷰 좋아요 수
-			// 타겟이름을 review table이기 때문에 review로 고정
-			int likeCount = likeService.getLikeCount("Clip", clip.getId());
-			
-			
-			ClipDTO clipDTO = ClipDTO.builder()
-					.id(clip.getId())
-					.title(clip.getTitle())
-					.videoPath(clip.getVideoPath())
-					.userId(clip.getUserId())
-					.loginId(user.getLoginId())
-					.likeCount(likeCount)
-					.createdAt(clip.getCreatedAt())
-					.build();
-			clipDTO.add(clipDTO);
-		}
-		return clipDTO;
+		// 클립 한개 정보 가져오기
+		Optional<Clip> clipList = clipRepository.findById(clipId);
+		
+	    // 클립이 존재하지 않을 경우 null 반환 (또는 예외 처리)
+	    if (clipList.isEmpty()) {
+	        return null; // 또는 적절한 에러 처리 로직 추가
+	    }
+	    
+	    Clip clip = clipList.get();
+		
+	    User user = userService.getUserById(clip.getUserId());
+
+	    // 클립 좋아요 수
+	    int likeCount = likeService.getLikeCount("Clip", clip.getId());
+
+	    return ClipDTO.builder()
+	            .id(clip.getId())
+	            .title(clip.getTitle())
+	            .videoPath(clip.getVideoPath())
+	            .userId(clip.getUserId())
+	            .loginId(user.getLoginId())
+	            .likeCount(likeCount)
+	            .createdAt(clip.getCreatedAt())
+	            .build();
 	}
 	
 	// 모든 클립 보이게

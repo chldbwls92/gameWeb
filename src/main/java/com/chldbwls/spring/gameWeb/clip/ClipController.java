@@ -45,7 +45,7 @@ public class ClipController {
 	}
 	
 	// 하나의 클립 view
-	@GetMapping("/datail-view")
+	@GetMapping("/detail-view")
 	public String clipDetail(
 			@RequestParam("clipId") int clipId
 			, Model model
@@ -54,8 +54,8 @@ public class ClipController {
 		int userId = (Integer)session.getAttribute("userId");
 		
 		// 특정 클립의 정보
-		ClipDTO clipList = clipService.getClip(clipId);
-		model.addAttribute("clipList", clipList);
+		ClipDTO clip = clipService.getClip(clipId);
+		model.addAttribute("clip", clip);
 		
 		// 특정 클립의 댓글
 		List<Comment> commentList = commentService.getCommentList(clipId);
