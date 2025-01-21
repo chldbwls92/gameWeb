@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileManager {
 	
-	public final static String FILE_UPLOAD_PATH = "D:\\CujGameWeb\\gamePicture";
+	public final static String FILE_UPLOAD_PATH = "/home/ec2-user/upload/gameWeb/fileManager";
 	
 	// 이미지파일 저장
 	public static String saveFile(MultipartFile file) {

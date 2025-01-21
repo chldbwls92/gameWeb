@@ -15,11 +15,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		
 		// 게임 파일
 		registry.addResourceHandler("/game/**")
-		.addResourceLocations("file:///" + FileManager.FILE_UPLOAD_PATH + "/");
+		.addResourceLocations("file://" + FileManager.FILE_UPLOAD_PATH + "/");
 		
 		// 영상 파일
 		registry.addResourceHandler("/videos/**")
-		.addResourceLocations("file:///" + VideoManager.FILE_UPLOAD_PATH + "/");
+		.addResourceLocations("file://" + VideoManager.FILE_UPLOAD_PATH + "/");
 	}
 	
 }
