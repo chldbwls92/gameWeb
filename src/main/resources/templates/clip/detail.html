@@ -5,13 +5,13 @@
 <head>
 <body>
 	<article layout:fragment="contents">
-		<h1 class="text-center text-white mt-5">클립</h1>
+		<h1 class="text-center text-white mt-5" th:text="${clip.title}">클립이름</h1>
 		<!-- 클립 내용 -->
 		<div id="clip" th:data-clip-id="${clip.id}">
 			<div class="text-center">
-				<div class="d-flex text-white">
-					<div>작성자 이름</div>
-					<div>작성 날짜</div>
+				<div class="d-flex text-white justify-content-center my-3">
+					<div class="mr-3" th:text="${clip.loginId}">user_name</div>
+					<span class="ml-2" th:text="${#temporals.format(clip.createdAt, 'yyyy-MM-dd')}"></span>
 				</div>
 				<video th:src="${clip.videoPath}" width="320">비디오 썸네일</video>
 			</div>
