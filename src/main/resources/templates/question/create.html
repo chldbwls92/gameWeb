@@ -30,7 +30,7 @@
 					, data:{"contents":contents}
 					, success:function(response) {
 						if(reponse.result == "success") {
-							window.history.back();
+							location.href = "/question/main-view";
 						} else {
 							alert("내용을 확인해주세요");
 						}

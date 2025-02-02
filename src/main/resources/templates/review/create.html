@@ -48,7 +48,7 @@
 					, data:{"contents":contents, "rating":rating, "gameId":gameId}
 					, success:function(response) {
 						if(response.result == "success") {
-							window.history.back();
+							location.href = "/review/main-view"
 						} else {
 							alert("별점과 내용을 확인해주세요");
 						}

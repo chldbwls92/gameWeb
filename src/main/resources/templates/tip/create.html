@@ -36,7 +36,7 @@
 					, data:{"contents":contents, "gameId":gameId}
 					, success:function(response) {
 						if(response.result == "success") {
-							window.history.back();
+							location.href = "/tip/main-view"
 						} else {
 							alert("내용을 확인해주세요");
 						}
