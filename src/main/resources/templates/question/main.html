@@ -14,7 +14,7 @@
 		<div th:each="question:${questionList}" class="text-center text-white">
 			<!-- 사용자 문의사항 내용 -->
 			<div>
-				<div th:text="${question.loginId}">유저이름</div>
+				<b><div th:text="${question.loginId}">유저이름</div></b>
 				<div th:text="${question.contents}">내용</div>
 			</div>
 			<!-- 운영자 답글 -->

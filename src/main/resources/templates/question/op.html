@@ -14,7 +14,7 @@
 			<!-- 사용자 문의사항 내용 -->
 			<div>
 				<div class="d-flex justify-content-center">
-					<div th:text="${question.loginId}">유저이름</div><button type="button" id="deleteBtn" class="btn btn-danger btn-sm mb-2 ml-2" th:data-question-id="${question.questionId}">삭제</button>
+					<b><div th:text="${question.loginId}">유저이름</div></b><button type="button" id="deleteBtn" class="btn-sm btn-danger btn-sm mb-2 ml-2" th:data-question-id="${question.questionId}">삭제</button>
 				</div>
 				<div th:text="${question.contents}">내용</div>
 			</div>
@@ -24,7 +24,8 @@
 					<div th:text="| -> 운영자 : ${answer.contents}|"> -> 운영자 : 운영자 답글 내용</div>
 				</div>
 				<div> <!-- 작성 -->
-					<input id="answerInput" type="text" style="width:300px;" class="mt-5 small rounded text-center" placeholder="답변을 입력해주세요">
+					<input id="answerInput" type="text" style="width:250px;" class="mt-1 small rounded text-center" placeholder="답변을 입력해주세요">
+					<button id="answerCreateBtn" type="button" class="btn-sm bg-secondary text-white">입력</button>
 				</div>
 			</div>
 		</div>
@@ -55,6 +56,16 @@
 				}
 			})
 		})
+		
+		// 답변(answer) 추가버튼 누를때
+		$(document).on("click", "answerCreateBtn", function() {
+			
+			
+			
+			
+		})
+		
+		
 	})
 </script>
 
