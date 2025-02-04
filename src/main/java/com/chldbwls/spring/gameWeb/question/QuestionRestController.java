@@ -3,6 +3,7 @@ package com.chldbwls.spring.gameWeb.question;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,7 +38,19 @@ public class QuestionRestController {
 			resultMap.put("result", "fail");
 		}
 		return resultMap;
+	}
+	
+	// 문의사항 삭제
+	@DeleteMapping("/delete")
+	public Map<String, String> deleteQuestion(@RequestParam("id") int id) {
 		
+		Map<String, String> resultMap = new HashMap<>();
+		if(questionService.deleteQuestion(id)) {
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+		return resultMap;
 	}
 
 }

@@ -2,6 +2,7 @@ package com.chldbwls.spring.gameWeb.question.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -47,12 +48,6 @@ public class QuestionService {
 		}		
 	}
 	
-	// 모든 문의사항 list 가져오기
-//	public List<Question> getAllQuestion() {
-//		List<Question> questionList = questionRepository.findAll();
-//		return questionList;
-//	}
-	
 	
 	// 문의사항 + 답변 모두 가져오는 리스트
 	public List<QuestionDTO> getQuestionList() {
@@ -79,6 +74,22 @@ public class QuestionService {
 			questionDTOList.add(result);
 		}
 		return questionDTOList;
+	}
+	
+	// 문의사항 삭제
+	public boolean deleteQuestion(int id) {
+		
+		// id로 문의사항 가져오기
+		Optional<Question> optionalQuestion = questionRepository.findById(id);
+		
+		if(optionalQuestion.isPresent()) {
+			Question question = optionalQuestion.get();
+			questionRepository.delete(question);
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 
 }

@@ -29,7 +29,7 @@
 					, url:"/question/create"
 					, data:{"contents":contents}
 					, success:function(response) {
-						if(reponse.result == "success") {
+						if(response.result == "success") {
 							location.href = "/question/main-view";
 						} else {
 							alert("내용을 확인해주세요");
